@@ -14,7 +14,7 @@
 	<name>warehouse-backend</name>
 	<description>Warehouse backend application for Oktara challenge</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -26,6 +26,46 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>6.1.2.Final</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
+		<dependency>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.transaction/jakarta.transaction-api -->
+		<dependency>
+				<groupId>jakarta.transaction</groupId>
+				<artifactId>jakarta.transaction-api</artifactId>
+				<version>2.0.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>42.4.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api -->
+		<dependency>
+				<groupId>jakarta.xml.bind</groupId>
+				<artifactId>jakarta.xml.bind-api</artifactId>
+				<version>4.0.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>3.0.0-M4</version>
+		</dependency>
+		<dependency>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>2.0.1</version>
+  </dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -40,5 +80,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
