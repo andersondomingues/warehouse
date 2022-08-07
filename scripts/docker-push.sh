@@ -1,0 +1,1 @@
+sudo docker push andersondomingues/warehouse-backend:latest
