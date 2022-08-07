@@ -8,6 +8,10 @@ jobs:
   build:
     name: Build Image
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+      id-token: write
     steps:
 
     - name: Acquire source code
@@ -27,8 +31,9 @@ jobs:
     - name: Dockerize and push to AWS
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: docker_nodejs_demo
-        IMAGE_TAG: nodejs_demo_image
+        ECR_REPOSITORY: warehouse-backend-test
+        IMAGE_TAG: latest
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+        docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
