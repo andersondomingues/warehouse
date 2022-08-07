@@ -2,7 +2,7 @@ name: Build, test, and deploy to test env.
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
