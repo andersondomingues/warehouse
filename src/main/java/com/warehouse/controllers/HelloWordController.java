@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloWordController {
 
+	@GetMapping("/home")
+	public String home(){
+		return "123456";
+	}
+
 	@GetMapping("/helloWorld")
 	public HelloWorld helloWorld(
 		@RequestParam(value = "hello", defaultValue = "Hello") String hello,

@@ -16,7 +16,7 @@ public class HelloWorldService {
     session.getTransaction().begin();
 
 		HelloWorld hwmodel = new HelloWorld(hello, world);
-    session.save(hwmodel);
+    session.persist(hwmodel);
 
 		session.getTransaction().commit();
     HibernateHelper.shutdown();
