@@ -7,8 +7,6 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import com.fasterxml.jackson.databind.deser.impl.NullsFailProvider;
-
 public class HibernateHelper {
 
 	private static SessionFactory sessionFactory = null;
@@ -19,11 +17,6 @@ public class HibernateHelper {
 		{
 			if (sessionFactory == null)
 			{
-				// System.out.println("hibernate_db_host: " + System.getProperty("hibernate_db_host"));
-				// System.out.println("hibernate_db_name: " + System.getProperty("hibernate_db_name"));
-				// System.out.println("hibernate_db_user: " + System.getProperty("hibernate_db_user"));
-				// System.out.println("hibernate_db_pass: " + System.getProperty("hibernate_db_pass"));
-
 				StringBuilder builder = new StringBuilder();
 				builder.append("jdbc:postgresql://")
 					.append(System.getProperty("hibernate_db_host"))
@@ -40,8 +33,6 @@ public class HibernateHelper {
 					System.getProperty("hibernate_db_pass"));
 
 				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
-					//.configure("hibernate.cfg.xml").build();
-					// .configure().build();
 					.configure()
 					.applySettings(cfg.getProperties())
 					.build();
@@ -50,10 +41,6 @@ public class HibernateHelper {
 						.getMetadataBuilder()
 						.build();
 				
-				
-									
-				// sessionFactory = cfg.buildSessionFactory();
-
 				sessionFactory = metaData.getSessionFactoryBuilder().build();
 			}
 			return sessionFactory;
