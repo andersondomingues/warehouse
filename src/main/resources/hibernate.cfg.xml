@@ -9,7 +9,7 @@
     <property name="show_sql">true</property>
     <property name="connection_pool_size">10</property>
     <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <property name="connection.url">${hibernate_db_host}/${hibernate_db_name}</property>  
+    <property name="connection.url">jdbc:postgresql://${hibernate_db_host}/${hibernate_db_name}</property>  
     <property name="connection.username">${hibernate_db_user}</property>  
     <property name="connection.password">${hibernate_db_pass}</property>  
     <property name="connection.driver_class">org.postgresql.Driver</property>  
