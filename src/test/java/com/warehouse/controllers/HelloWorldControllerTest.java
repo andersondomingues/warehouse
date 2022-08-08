@@ -27,7 +27,7 @@ public class HelloWorldControllerTest {
 		// 		.andExpect(status().isOk())
 		// 		.andExpect(jsonPath("$.hello").value("hello"))
 		// 		.andExpect(jsonPath("$.world").value("world"));
-		//
+		// //
 		return;
 	}
 }
