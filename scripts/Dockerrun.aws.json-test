@@ -1,0 +1,14 @@
+{
+    "AWSEBDockerrunVersion":"1",
+    "Image":{
+        "Name":"056022608261.dkr.ecr.sa-east-1.amazonaws.com/warehouse-backend-test:latest",
+        "Update": "true"
+    },
+
+    "Ports":[
+        {
+            "ContainerPort":8080,
+            "HostPort":8080
+        }
+    ]
+}
