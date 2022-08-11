@@ -17,20 +17,18 @@ public class HibernateHelper {
 		{
 			if (sessionFactory == null)
 			{
-				StringBuilder builder = new StringBuilder();
-				builder.append("jdbc:postgresql://")
-					.append(System.getProperty("hibernate_db_host"))
+				StringBuilder builder = new StringBuilder()
+				  .append("jdbc:postgresql://")
+					.append(SecretManager.getInstance().getDatabaseHost())
 					.append("/")
-					.append(System.getProperty("hibernate_db_name"));
+					.append(SecretManager.getInstance().getDatabaseName());
 
 				Configuration cfg = new Configuration();
 				cfg.setProperty("hibernate.connection.url", builder.toString());
+
+				cfg.setProperty("hibernate.connection.username", SecretManager.getInstance().getDatabaseUser());
 				
-				cfg.setProperty("hibernate.connection.username", 
-					System.getProperty("hibernate_db_user"));
-				
-				cfg.setProperty("hibernate.connection.password", 
-					System.getProperty("hibernate_db_pass"));
+				cfg.setProperty("hibernate.connection.password", SecretManager.getInstance().getDatabasePass());
 
 				StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
 					.configure()
