@@ -5,7 +5,13 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
 # stage 2: run
+ARG aws_bin_test
+ARG aws_key_test
+ARG aws_secret_test
+ARG aws_bin_prod
+ARG aws_key_prod
+ARG aws_secret_prod
 FROM openjdk:11-jre-slim
 COPY --from=build /home/app/target/warehouse-backend-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-Daws_bin_test=database/test", "-Daws_key_test=AKIAQ2CZVFGCT4YUUOU6", "-Daws_secret_test=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", "-Daws_bin_prod=database/test", "-Daws_key_prod=AKIAQ2CZVFGCT4YUUOU6", "-Daws_secret_prod=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", "-jar","/usr/local/lib/app.jar" ]
+ENTRYPOINT ["java", ${aws_bin_test}, ${aws_key_test}, ${aws_secret_test}, ${aws_bin_prod}, ${aws_key_prod}, ${aws_secret_prod}, "-jar","/usr/local/lib/app.jar" ]
