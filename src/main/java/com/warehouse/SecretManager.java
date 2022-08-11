@@ -25,12 +25,14 @@ import com.amazonaws.services.secretsmanager.model.GetSecretValueResult;
 public class SecretManager {
 
   String SECRETS_REGION = "sa-east-1";
-  String SECRETS_PROD_BIN = "database/prod";
-  String SECRETS_PROD_ACCESS_KEY = "AKIAQ2CZVFGCT4YUUOU6";
-  String SECRETS_PROD_SECRET_KEY = "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";
-  String SECRETS_TEST_BIN = "database/test";
-  String SECRETS_TEST_ACCESS_KEY = "AKIAQ2CZVFGCT4YUUOU6";
-  String SECRETS_TEST_SECRET_KEY = "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";
+
+  private final String SECRETS_PROD_BIN = System.getProperty("aws_bin_test");
+  private final String SECRETS_PROD_ACCESS_KEY = System.getProperty("aws_key_test");
+  private final String SECRETS_PROD_SECRET_KEY = System.getProperty("aws_secret_test");
+
+  private final String SECRETS_TEST_BIN = System.getProperty("aws_bin_prod");
+  private final String SECRETS_TEST_ACCESS_KEY = System.getProperty("aws_bin_prod");
+  private final String SECRETS_TEST_SECRET_KEY = System.getProperty("aws_secret_prod");
 
   private static SecretManager _instance = null;
 
@@ -64,6 +66,8 @@ public class SecretManager {
 
   private SecretManager() {
     
+    System.out.println(SECRETS_PROD_BIN); 
+
     JSONObject dbcredentials = null;
 
     Logger logger = LoggerFactory.getLogger(SecretManager.class);
