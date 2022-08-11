@@ -2,7 +2,7 @@ name: Build, test, and deploy to test env.
 
 on:
   push:
-    branches: [ test ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -31,9 +31,15 @@ jobs:
     - name: Dockerize and push to AWS
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: warehouse-backend-test
+        ECR_REPOSITORY: warehouse-backend-prod
         IMAGE_TAG: latest
       run: |
-        docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+        docker build -t $ECR_REPOSITORY:$IMAGE_TAG \
+          --build-arg aws_bin_test=${{ secrets.AWS_SECRETS_BIN_TEST }} \
+          --build-arg aws_bin_prod=${{ secrets.AWS_SECRETS_BIN_PROD }} \
+          --build-arg aws_key_test=${{ secrets.AWS_SECRETS_KEY_TEST }} \
+          --build-arg aws_key_prod=${{ secrets.AWS_SECRETS_KEY_PROD }} \
+          --build-arg aws_secret_test=${{ secrets.AWS_SECRETS_SECRET_TEST }} \
+          --build-arg aws_secret_prod=${{ secrets.AWS_SECRETS_SECRET_PROD }} .
         docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
