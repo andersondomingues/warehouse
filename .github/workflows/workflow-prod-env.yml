@@ -1,4 +1,4 @@
-name: Deply to PROD env.
+name: Deploy to PROD env.
 
 on:
   push:
@@ -51,6 +51,9 @@ jobs:
         application_name: warehouse-backend-prod
         environment_name: Warehousebackendprod-env
         use_existing_version_if_available: true
-        version_label:  ${{ github.run_id }}
+        version_label: ${{ github.run_id }}
         region: sa-east-1
         deployment_package: script.zip
+
+
+

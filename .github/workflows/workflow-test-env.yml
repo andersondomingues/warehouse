@@ -1,4 +1,4 @@
-name: Deply to TEST env.
+name: Deploy to TEST env.
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
         docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
 
-    - name: Prepare deploy script
+    - name: Prepare Deploy script
       run: |
         curl -o Dockerrun.aws.json https://raw.githubusercontent.com/andersondomingues/warehouse-backend/test/scripts/Dockerrun.aws.json-test
         zip -r script.zip Dockerrun.aws.json
