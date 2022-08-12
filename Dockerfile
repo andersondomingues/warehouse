@@ -5,7 +5,7 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
 # stage 2: run
-FROM openjdk:11-jre-slim
+FROM amazoncorretto
 ARG aws_bin_test
 ARG aws_key_test
 ARG aws_secret_test
