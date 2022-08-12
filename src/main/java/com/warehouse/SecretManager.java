@@ -66,8 +66,6 @@ public class SecretManager {
 
   private SecretManager() {
     
-    System.out.println(SECRETS_PROD_BIN); 
-
     JSONObject dbcredentials = null;
 
     Logger logger = LoggerFactory.getLogger(SecretManager.class);
@@ -85,6 +83,13 @@ public class SecretManager {
         dbcredentials = getSecrets(SECRETS_TEST_ACCESS_KEY, SECRETS_TEST_SECRET_KEY, SECRETS_TEST_BIN);
         logger.info("Loaded TEST database credentials from AWS Secrets.", SecretManager.class.getSimpleName());      
       }catch (Exception ee){
+        
+        System.out.println(SECRETS_PROD_BIN); 
+        System.out.println(SECRETS_PROD_ACCESS_KEY); 
+        System.out.println(SECRETS_PROD_SECRET_KEY); 
+        System.out.println(SECRETS_TEST_BIN); 
+        System.out.println(SECRETS_TEST_ACCESS_KEY); 
+        System.out.println(SECRETS_TEST_SECRET_KEY); 
         logger.error("Unable to load database credentials from AWS Secrets.", SecretManager.class.getSimpleName());
       }
       
