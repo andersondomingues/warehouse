@@ -37,3 +37,19 @@ jobs:
         docker build -t $ECR_REPOSITORY:$IMAGE_TAG --build-arg aws_bin_test=${{ secrets.AWS_SECRETS_BIN_TEST }} --build-arg aws_bin_prod=${{ secrets.AWS_SECRETS_BIN_PROD }} --build-arg aws_key_test=${{ secrets.AWS_SECRETS_KEY_TEST }} --build-arg aws_key_prod=${{ secrets.AWS_SECRETS_KEY_PROD }} --build-arg aws_secret_test=${{ secrets.AWS_SECRETS_SECRET_TEST }} --build-arg aws_secret_prod=${{ secrets.AWS_SECRETS_SECRET_PROD }} .
         docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+
+    - name: Deploy to beanstalk
+      uses: einaregilsson/beanstalk-deploy@v20
+      run:
+        curl -O https://raw.githubusercontent.com/andersondomingues/warehouse-backend/test/scripts/Dockerrun.aws.json-test
+        zip -r script.zip Dockerrun.aws.json-test
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID_EBS }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_EBS }}
+        application_name: warehouse-backend-test
+        environment_name: Warehousebackendtest-env
+        version_label: 12345
+        region: sa-east-1
+        deployment_package: script.zip
+        
+
+
