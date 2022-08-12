@@ -14,4 +14,5 @@ ARG aws_secret_prod
 FROM openjdk:11-jre-slim
 COPY --from=build /home/app/target/warehouse-backend-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
 EXPOSE 8080
-ENTRYPOINT ["java", ${aws_bin_test}, ${aws_key_test}, ${aws_secret_test}, ${aws_bin_prod}, ${aws_key_prod}, ${aws_secret_prod}, "-jar","/usr/local/lib/app.jar" ]
+#RUN ENTRYPOINT ["java", ${aws_bin_test}, ${aws_key_test}, ${aws_secret_test}, ${aws_bin_prod}, ${aws_key_prod}, ${aws_secret_prod}, "-jar","/usr/local/lib/app.jar" ]
+CMD java ${aws_bin_test} ${aws_key_test} ${aws_secret_test} ${aws_bin_prod} ${aws_key_prod} ${aws_secret_prod} -jar /usr/local/lib/app.jar
