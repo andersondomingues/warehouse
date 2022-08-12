@@ -40,8 +40,8 @@ jobs:
 
     - name: Prepare deploy script
       run: |
-        curl -O https://raw.githubusercontent.com/andersondomingues/warehouse-backend/test/scripts/Dockerrun.aws.json-test
-        zip -r script.zip Dockerrun.aws.json-test
+        curl -o Dockerrun.aws.json https://raw.githubusercontent.com/andersondomingues/warehouse-backend/test/scripts/Dockerrun.aws.json-test
+        zip -r script.zip Dockerrun.aws.json
 
     - name: Deploy to beanstalk
       uses: einaregilsson/beanstalk-deploy@v20
