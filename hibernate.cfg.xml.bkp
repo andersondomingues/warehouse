@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-configuration PUBLIC  
+  "-//Hibernate/Hibernate Configuration DTD 5.3//EN"  
+  "http://hibernate.sourceforge.net/hibernate-configuration-5.3.dtd">  
+  
+<hibernate-configuration>
+  <session-factory>
+    <property name="hbm2ddl.auto">update</property>  
+    <property name="show_sql">true</property>
+    <property name="connection_pool_size">10</property>
+    <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="connection.url">jdbc:postgresql://database-warehouse-test.cwd25dfzkdvu.sa-east-1.rds.amazonaws.com:5432/warehouse</property>  
+    <property name="connection.username">postgres</property>  
+    <property name="connection.password">CED3rnHDra9I5QlcBUCU</property>  
+    <property name="connection.driver_class">org.postgresql.Driver</property>  
+    <mapping resource="HelloWorld.hbm.xml"/>  
+    <!-- <mapping class="org.javabrains.sanjaya.dto.UserDetails"/> -->
+  </session-factory>  
+</hibernate-configuration> 
