@@ -5,7 +5,7 @@ COPY pom.xml /home/app
 RUN mvn -f /home/app/pom.xml clean package
 
 # stage 2: run
-FROM amazoncorretto
+FROM amazoncorretto:8u342-alpine3.14-jre
 ARG aws_bin_test
 ARG aws_key_test
 ARG aws_secret_test
