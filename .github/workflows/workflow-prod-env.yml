@@ -51,6 +51,6 @@ jobs:
         application_name: warehouse-backend-prod
         environment_name: Warehousebackendprod-env
         use_existing_version_if_available: true
-        version_label:  ${{ github.run_attempt }}
+        version_label:  ${{ github.run_id }}
         region: sa-east-1
         deployment_package: script.zip
