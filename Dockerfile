@@ -13,6 +13,7 @@ ARG aws_bin_prod
 ARG aws_key_prod
 ARG aws_secret_prod
 
+# persisting env vars from arg
 ENV eaws_bin_test=${aws_bin_test}
 ENV eaws_key_test=${aws_key_test}
 ENV eaws_secret_test=${aws_secret_test}
