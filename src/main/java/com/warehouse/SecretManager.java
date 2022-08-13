@@ -1,5 +1,6 @@
 package com.warehouse;
 
+import org.apache.naming.ServiceRef;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -88,6 +89,10 @@ public class SecretManager {
   public JSONObject getSecrets(String accessKey, String secretKey, String secretName) 
     throws Exception{
     
+    System.out.println("KEY:" + accessKey);
+    System.out.println("SCR:" + secretKey);
+    System.out.println("BIN:" + secretName);
+
     BasicAWSCredentials credentials 
       = new BasicAWSCredentials(accessKey, secretKey);
     
