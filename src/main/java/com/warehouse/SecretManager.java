@@ -79,7 +79,7 @@ public class SecretManager {
       String type = this.databaseHost.contains("prod") ? "PRODUCTION" : "TEST";
       logger.info("Loaded " + type  + "database credentials from AWS Secrets.", SecretManager.class.getSimpleName());
     
-    } catch (Exception e){
+    } catch (Exception e){ 
 
       logger.error("Unable to load database credentials from AWS Secrets.", SecretManager.class.getSimpleName());
       
