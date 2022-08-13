@@ -1,4 +1,4 @@
-name: Deply to PROD env.
+name: Deploy to PROD env.
 
 on:
   push:
@@ -34,6 +34,26 @@ jobs:
         ECR_REPOSITORY: warehouse-backend-prod
         IMAGE_TAG: latest
       run: |
-        docker build -t $ECR_REPOSITORY:$IMAGE_TAG --build-arg aws_bin_test=${{ secrets.AWS_SECRETS_BIN_TEST }} --build-arg aws_bin_prod=${{ secrets.AWS_SECRETS_BIN_PROD }} --build-arg aws_key_test=${{ secrets.AWS_SECRETS_KEY_TEST }} --build-arg aws_key_prod=${{ secrets.AWS_SECRETS_KEY_PROD }} --build-arg aws_secret_test=${{ secrets.AWS_SECRETS_SECRET_TEST }} --build-arg aws_secret_prod=${{ secrets.AWS_SECRETS_SECRET_PROD }} .
+        docker build -t $ECR_REPOSITORY:$IMAGE_TAG --build-arg aws_bin=${{ secrets.AWS_SECRETS_BIN_PROD }} --build-arg aws_key=${{ secrets.AWS_SECRETS_KEY }} --build-arg aws_secret=${{ secrets.AWS_SECRETS_SECRET }} .
         docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG 
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+    - name: Prepare Deploy script
+      run: |
+        curl -o Dockerrun.aws.json https://raw.githubusercontent.com/andersondomingues/warehouse-backend/test/scripts/Dockerrun.aws.json-prod
+        zip -r script.zip Dockerrun.aws.json
+
+    - name: Deploy to beanstalk
+      uses: einaregilsson/beanstalk-deploy@v20
+      with:        
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID_EBS }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_EBS }}
+        application_name: warehouse-backend-prod
+        environment_name: Warehousebackendprod-env
+        use_existing_version_if_available: true
+        version_label: ${{ github.run_id }}
+        region: sa-east-1
+        deployment_package: script.zip
+
+
+
