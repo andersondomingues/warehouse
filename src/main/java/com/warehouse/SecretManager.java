@@ -26,13 +26,9 @@ public class SecretManager {
 
   String SECRETS_REGION = "sa-east-1";
 
-  private final String SECRETS_PROD_BIN = System.getProperty("aws_bin_test");
-  private final String SECRETS_PROD_ACCESS_KEY = System.getProperty("aws_key_test");
-  private final String SECRETS_PROD_SECRET_KEY = System.getProperty("aws_secret_test");
-
-  private final String SECRETS_TEST_BIN = System.getProperty("aws_bin_prod");
-  private final String SECRETS_TEST_ACCESS_KEY = System.getProperty("aws_bin_prod");
-  private final String SECRETS_TEST_SECRET_KEY = System.getProperty("aws_secret_prod");
+  private final String SECRETS_BIN = System.getProperty("aws_bin");
+  private final String SECRETS_ACCESS_KEY = System.getProperty("aws_key");
+  private final String SECRETS_SECRET_KEY = System.getProperty("aws_secret");
 
   private static SecretManager _instance = null;
 
@@ -73,32 +69,20 @@ public class SecretManager {
     try {
       // Try to get production variables once. If outside the production
       // environment, variables won't be available.
-      dbcredentials = getSecrets(SECRETS_PROD_ACCESS_KEY, SECRETS_PROD_SECRET_KEY, SECRETS_PROD_BIN);
-      logger.info("Loaded PRODUCTION database credentials from AWS Secrets.", SecretManager.class.getSimpleName());
+      dbcredentials = getSecrets(SECRETS_ACCESS_KEY, SECRETS_SECRET_KEY, SECRETS_BIN);
+      this.databaseHost = dbcredentials.get("hibernate_db_host").toString();
+      this.databaseName = dbcredentials.get("hibernate_db_name").toString();
+      this.databasePass = dbcredentials.get("hibernate_db_pass").toString();
+      this.databaseUser = dbcredentials.get("hibernate_db_user").toString();
+      
+      String type = this.databaseHost.contains("prod") ? "PRODUCTION" : "TEST";
+      logger.info("Loaded " + type  + "database credentials from AWS Secrets.", SecretManager.class.getSimpleName());
     
     } catch (Exception e){
 
-      // fall back to dev environment
-      try { 
-        dbcredentials = getSecrets(SECRETS_TEST_ACCESS_KEY, SECRETS_TEST_SECRET_KEY, SECRETS_TEST_BIN);
-        logger.info("Loaded TEST database credentials from AWS Secrets.", SecretManager.class.getSimpleName());      
-      }catch (Exception ee){
-        
-        System.out.println(SECRETS_PROD_BIN); 
-        System.out.println(SECRETS_PROD_ACCESS_KEY); 
-        System.out.println(SECRETS_PROD_SECRET_KEY); 
-        System.out.println(SECRETS_TEST_BIN); 
-        System.out.println(SECRETS_TEST_ACCESS_KEY); 
-        System.out.println(SECRETS_TEST_SECRET_KEY); 
-        logger.error("Unable to load database credentials from AWS Secrets.", SecretManager.class.getSimpleName());
-      }
+      logger.error("Unable to load database credentials from AWS Secrets.", SecretManager.class.getSimpleName());
       
     }
-    
-    this.databaseHost = dbcredentials.get("hibernate_db_host").toString();
-    this.databaseName = dbcredentials.get("hibernate_db_name").toString();
-    this.databasePass = dbcredentials.get("hibernate_db_pass").toString();
-    this.databaseUser = dbcredentials.get("hibernate_db_user").toString();
   }
 
   public JSONObject getSecrets(String accessKey, String secretKey, String secretName) 
