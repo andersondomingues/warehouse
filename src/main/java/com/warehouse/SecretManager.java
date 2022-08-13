@@ -1,6 +1,5 @@
 package com.warehouse;
 
-import org.apache.naming.ServiceRef;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;

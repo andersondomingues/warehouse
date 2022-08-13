@@ -38,4 +38,15 @@ public class StorageItemService {
     
     return results;
   }
+
+  public void putStorageItems(StorageItem item){
+		
+    Session session = HibernateHelper.getSessionFactory().openSession();
+    session.getTransaction().begin();
+
+    session.persist(item);
+
+		session.getTransaction().commit();
+    HibernateHelper.shutdown();
+	}
 }
